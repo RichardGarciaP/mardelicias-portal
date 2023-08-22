@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import {useEffect, useState} from 'react';
 import { useNavigate} from "react-router-dom";
 
 // material-ui
@@ -29,7 +29,7 @@ import AnimateButton from 'ui-component/extended/AnimateButton';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import {signInWithEmail} from "../../../../services/users/login";
-import {setLocalStorage} from "../../../../utils/utils";
+import {getLocalStorage, setLocalStorage} from "../../../../utils/utils";
 
 
 // ============================|| FIREBASE - LOGIN ||============================ //
@@ -48,12 +48,19 @@ const FirebaseLogin = ({ ...others }) => {
     event.preventDefault();
   };
 
+  useEffect(()=>{
+      if (getLocalStorage('user') && getLocalStorage('session')){
+          navigate('/');
+      }
+  }, [])
+
+
   return (
     <>
       <Formik
         initialValues={{
-          email: 'info@codedthemes.com',
-          password: '123456',
+          email: '',
+          password: '',
           submit: null
         }}
         validationSchema={Yup.object().shape({

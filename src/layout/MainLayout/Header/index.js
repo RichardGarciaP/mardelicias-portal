@@ -12,14 +12,12 @@ import NotificationSection from './NotificationSection';
 // assets
 import { IconMenu2 } from '@tabler/icons';
 
-// ==============================|| MAIN NAVBAR / HEADER ||============================== //
 
 const Header = ({ handleLeftDrawerToggle }) => {
   const theme = useTheme();
 
   return (
     <>
-      {/* logo & toggler button */}
       <Box
         sx={{
           width: 228,
