@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate} from "react-router-dom";
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
@@ -27,12 +28,15 @@ import AnimateButton from 'ui-component/extended/AnimateButton';
 // assets
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import {signInWithEmail} from "../../../../services/users/login";
+import {setLocalStorage} from "../../../../utils/utils";
 
 
 // ============================|| FIREBASE - LOGIN ||============================ //
 
 const FirebaseLogin = ({ ...others }) => {
   const theme = useTheme();
+  const navigate = useNavigate();
   const [checked, setChecked] = useState(true);
 
   const [showPassword, setShowPassword] = useState(false);
@@ -43,17 +47,6 @@ const FirebaseLogin = ({ ...others }) => {
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
-
-  const onSubmit = async (values, { setErrors, setStatus, setSubmitting }) => {
-      try {
-          setStatus({ success: true });
-          setSubmitting(false);
-      } catch (err) {
-          setStatus({ success: false });
-          setErrors({ submit: err.message });
-          setSubmitting(false);
-      }
-  }
 
   return (
     <>
@@ -67,7 +60,25 @@ const FirebaseLogin = ({ ...others }) => {
           email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
           password: Yup.string().max(255).required('Password is required')
         })}
-        onSubmit={onSubmit}
+        onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
+
+            const {email, password} = values;
+            const {data, error} = await signInWithEmail({email, password});
+
+            if (error){
+                setErrors({ submit: error.message });
+                setStatus({ success: false });
+                setSubmitting(false);
+                return;
+            }
+
+            setStatus({ success: true });
+            setSubmitting(false);
+            setLocalStorage('user', data.user);
+            setLocalStorage('session', data.session);
+
+            navigate('/');
+        }}
       >
         {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) => (
           <form noValidate onSubmit={handleSubmit} {...others}>

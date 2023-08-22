@@ -11,13 +11,18 @@ import TotalIncomeDarkCard from './TotalIncomeDarkCard';
 import TotalIncomeLightCard from './TotalIncomeLightCard';
 import TotalGrowthBarChart from './TotalGrowthBarChart';
 import { gridSpacing } from 'store/constant';
+import {getLocalStorage} from "../../../utils/utils";
+import {useNavigate} from "react-router-dom";
 
-// ==============================|| DEFAULT DASHBOARD ||============================== //
 
 const Dashboard = () => {
+  const navigate = useNavigate();
   const [isLoading, setLoading] = useState(true);
   useEffect(() => {
     setLoading(false);
+    if (!getLocalStorage('user') && !getLocalStorage('session')){
+        navigate('/login');
+    }
   }, []);
 
   return (
