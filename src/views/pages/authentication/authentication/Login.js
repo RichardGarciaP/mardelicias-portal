@@ -2,20 +2,17 @@ import { Link } from 'react-router-dom';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
-import { Divider, Grid, Stack, Typography, useMediaQuery } from '@mui/material';
+import { Grid, Stack, Typography, useMediaQuery } from '@mui/material';
 
 // project imports
 import AuthWrapper1 from '../AuthWrapper1';
 import AuthCardWrapper from '../AuthCardWrapper';
+import AuthLogin from '../auth-forms/AuthLogin';
 import Logo from 'ui-component/Logo';
-import AuthRegister from '../auth-forms/AuthRegister';
-import AuthFooter from 'ui-component/cards/AuthFooter';
 
-// assets
 
-// ===============================|| AUTH3 - REGISTER ||=============================== //
 
-const Register = () => {
+const Login = () => {
   const theme = useTheme();
   const matchDownSM = useMediaQuery(theme.breakpoints.down('md'));
 
@@ -37,7 +34,7 @@ const Register = () => {
                       <Grid item>
                         <Stack alignItems="center" justifyContent="center" spacing={1}>
                           <Typography color={theme.palette.secondary.main} gutterBottom variant={matchDownSM ? 'h3' : 'h2'}>
-                            Sign up
+                            Hi, Welcome Back
                           </Typography>
                           <Typography variant="caption" fontSize="16px" textAlign={matchDownSM ? 'center' : 'inherit'}>
                             Enter your credentials to continue
@@ -47,29 +44,16 @@ const Register = () => {
                     </Grid>
                   </Grid>
                   <Grid item xs={12}>
-                    <AuthRegister />
-                  </Grid>
-                  <Grid item xs={12}>
-                    <Divider />
-                  </Grid>
-                  <Grid item xs={12}>
-                    <Grid item container direction="column" alignItems="center" xs={12}>
-                      <Typography component={Link} to="/pages/login/login3" variant="subtitle1" sx={{ textDecoration: 'none' }}>
-                        Already have an account?
-                      </Typography>
-                    </Grid>
+                    <AuthLogin />
                   </Grid>
                 </Grid>
               </AuthCardWrapper>
             </Grid>
           </Grid>
         </Grid>
-        <Grid item xs={12} sx={{ m: 3, mt: 1 }}>
-          <AuthFooter />
-        </Grid>
       </Grid>
     </AuthWrapper1>
   );
 };
 
-export default Register;
+export default Login;

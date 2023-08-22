@@ -19,7 +19,6 @@ const NavItem = ({ item, level }) => {
   const theme = useTheme();
   const dispatch = useDispatch();
   const { pathname } = useLocation();
-  console.log('pattttt', pathname)
   const customization = useSelector((state) => state.customization);
   const matchesSM = useMediaQuery(theme.breakpoints.down('lg'));
 
