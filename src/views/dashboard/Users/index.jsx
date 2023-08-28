@@ -18,8 +18,7 @@ const Users = () => {
     {
       field: 'id',
       headerName: 'ID',
-      flex: 1,
-      minWidth: 300
+      flex: 1
     },
     { field: 'fist_name', headerName: 'First name', flex: 1, valueGetter: (params) => `${params.row.user_metadata.first_name || ''}` },
     { field: 'last_name', headerName: 'Last name', flex: 1, valueGetter: (params) => `${params.row.user_metadata.last_name || ''}` },
@@ -43,7 +42,6 @@ const Users = () => {
     {
       field: 'actions',
       headerName: 'Acciones',
-      flex: 1,
       renderCell: (params) => <TableActions onEdit={() => onEdit(params.row.id)} />
     }
   ];

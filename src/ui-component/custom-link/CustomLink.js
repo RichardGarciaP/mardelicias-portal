@@ -1,16 +1,13 @@
 import React from 'react';
-import {Link} from "react-router-dom";
+import { Link } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
 
-const SimpleLink = styled(Link)(({isUnderline}) => ({
-    color: '#364152',
-    textDecoration: isUnderline ? 'underline': ''
+const SimpleLink = styled(Link)(() => ({
+  color: '#364152'
 }));
 
-const CustomLink = ({url, title, isUnderline = true}) => {
-    return (
-        <SimpleLink to={`/users/${url}`} isUnderline={isUnderline}>{title}</SimpleLink>
-    );
+const CustomLink = ({ url, title }) => {
+  return <SimpleLink to={`/users/${url}`}>{title}</SimpleLink>;
 };
 
 export default CustomLink;
