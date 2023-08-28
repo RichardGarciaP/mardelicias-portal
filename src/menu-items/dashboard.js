@@ -1,9 +1,9 @@
 // assets
 import { IconDashboard } from '@tabler/icons';
-import {Person} from '@mui/icons-material';
+import {Person, Store} from '@mui/icons-material';
 
 // constant
-const icons = { IconDashboard, Person };
+const icons = { IconDashboard, Person, Store};
 
 // ==============================|| DASHBOARD MENU ITEMS ||============================== //
 
@@ -26,6 +26,14 @@ const dashboard = {
       type: 'item',
       url: '/users',
       icon: icons.Person,
+      breadcrumbs: false
+    },
+    {
+      id: 'methods',
+      title: 'Productos',
+      type: 'item',
+      url: '/products',
+      icon: icons.Store,
       breadcrumbs: false
     },
   ]

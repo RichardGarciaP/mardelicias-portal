@@ -1,42 +1,60 @@
-// import { useEffect, useState } from 'react';
-
-// material-ui
-// import { Grid } from '@mui/material';
-
-// project imports
-
-
-
-// import { gridSpacing } from 'store/constant';
-// import TotalGrowthBarChart from "../Default/TotalGrowthBarChart";
-// import PopularCard from "../Default/PopularCard";
-import MainCard from "../../../ui-component/cards/MainCard";
-
-// ==============================|| DEFAULT DASHBOARD ||============================== //
+import MainCard from '../../../ui-component/cards/MainCard';
+import CustomTable from '../../../ui-component/table/CustomTable';
+import useUsers from '../../../hooks/useUsers';
+import CustomLink from '../../../ui-component/custom-link/CustomLink';
+import TableActions from '../../../ui-component/table/table-actions/TableActions';
+import { useNavigate } from 'react-router-dom';
 
 const Users = () => {
-    // const [isLoading, setLoading] = useState(true);
-    // useEffect(() => {
-    //     setLoading(false);
-    // }, []);
+  const { users, loading } = useUsers();
 
-    return (
-        <>
-            <MainCard title="Usuarios"></MainCard>
-            {/*<Grid container spacing={gridSpacing}>*/}
-            {/*    <Grid item xs={12}>*/}
-            {/*        <Grid container spacing={gridSpacing}>*/}
-            {/*            <Grid item xs={12} md={8}>*/}
-            {/*                <TotalGrowthBarChart isLoading={isLoading} />*/}
-            {/*            </Grid>*/}
-            {/*            <Grid item xs={12} md={4}>*/}
-            {/*                <PopularCard isLoading={isLoading} />*/}
-            {/*            </Grid>*/}
-            {/*        </Grid>*/}
-            {/*    </Grid>*/}
-            {/*</Grid>*/}
-        </>
-    );
+  const navigate = useNavigate();
+
+  const onEdit = (id) => {
+    navigate(`/users/${id}`);
+  };
+
+  const columns = [
+    {
+      field: 'id',
+      headerName: 'ID',
+      flex: 1,
+      minWidth: 300
+    },
+    { field: 'fist_name', headerName: 'First name', flex: 1, valueGetter: (params) => `${params.row.user_metadata.first_name || ''}` },
+    { field: 'last_name', headerName: 'Last name', flex: 1, valueGetter: (params) => `${params.row.user_metadata.last_name || ''}` },
+    {
+      field: 'user_metadata',
+      headerName: 'Nombre Completo',
+      sortable: false,
+      flex: 1,
+      valueGetter: (params) => `${params.row.user_metadata.first_name || ''} ${params.row.user_metadata.last_name || ''}`
+    },
+    {
+      field: 'email',
+      headerName: 'Email',
+      flex: 1
+    },
+    {
+      field: 'phone',
+      headerName: 'Telefono',
+      flex: 1
+    },
+    {
+      field: 'actions',
+      headerName: 'Acciones',
+      flex: 1,
+      renderCell: (params) => <TableActions onEdit={() => onEdit(params.row.id)} />
+    }
+  ];
+
+  return (
+    <>
+      <MainCard title="Usuarios">
+        <CustomTable rows={users} columns={columns} loading={loading} />
+      </MainCard>
+    </>
+  );
 };
 
 export default Users;

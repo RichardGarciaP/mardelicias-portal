@@ -31,6 +31,7 @@ import User1 from 'assets/images/users/user-round.svg';
 // assets
 import { IconLogout, IconSettings } from '@tabler/icons';
 import {removeLocalStorage} from "../../../../utils/utils";
+import {signOut} from "../../../../services/users/login";
 
 // ==============================|| PROFILE MENU ||============================== //
 
@@ -41,14 +42,14 @@ const ProfileSection = () => {
 
   const [selectedIndex, setSelectedIndex] = useState(-1);
   const [open, setOpen] = useState(false);
-  /**
-   * anchorRef is used on different componets and specifying one type leads to other components throwing an error
-   * */
+
   const anchorRef = useRef(null);
   const handleLogout = async () => {
-    removeLocalStorage('user');
-    removeLocalStorage('session');
-    navigate('/login');
+      signOut().then(()=> {
+          removeLocalStorage('user');
+          removeLocalStorage('session');
+          navigate('/login');
+      })
   };
 
   const handleClose = (event) => {
