@@ -1,5 +1,5 @@
-import {useEffect, useState} from 'react';
-import { useNavigate} from "react-router-dom";
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
@@ -15,7 +15,7 @@ import {
   InputLabel,
   OutlinedInput,
   Stack,
-  Typography,
+  Typography
 } from '@mui/material';
 
 // third party
@@ -28,9 +28,8 @@ import AnimateButton from 'ui-component/extended/AnimateButton';
 // assets
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import {signInWithEmail} from "../../../../services/users/login";
-import {getLocalStorage, setLocalStorage} from "../../../../utils/utils";
-
+import { signInWithEmail } from '../../../../services/users/login';
+import { getLocalStorage, setLocalStorage } from '../../../../utils/utils';
 
 // ============================|| FIREBASE - LOGIN ||============================ //
 
@@ -48,12 +47,11 @@ const FirebaseLogin = ({ ...others }) => {
     event.preventDefault();
   };
 
-  useEffect(()=>{
-      if (getLocalStorage('user') && getLocalStorage('session')){
-          navigate('/');
-      }
-  }, [])
-
+  useEffect(() => {
+    if (getLocalStorage('user') && getLocalStorage('session')) {
+      navigate('/');
+    }
+  }, []);
 
   return (
     <>
@@ -64,33 +62,32 @@ const FirebaseLogin = ({ ...others }) => {
           submit: null
         }}
         validationSchema={Yup.object().shape({
-          email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
-          password: Yup.string().max(255).required('Password is required')
+          email: Yup.string().email('El email debe ser valido').max(255).required('El email es requerido'),
+          password: Yup.string().max(255).required('La contraseña es requerida')
         })}
         onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
+          const { email, password } = values;
+          const { data, error } = await signInWithEmail({ email, password });
 
-            const {email, password} = values;
-            const {data, error} = await signInWithEmail({email, password});
-
-            if (error){
-                setErrors({ submit: error.message });
-                setStatus({ success: false });
-                setSubmitting(false);
-                return;
-            }
-
-            setStatus({ success: true });
+          if (error) {
+            setErrors({ submit: error.message });
+            setStatus({ success: false });
             setSubmitting(false);
-            setLocalStorage('user', data.user);
-            setLocalStorage('session', data.session);
+            return;
+          }
 
-            navigate('/');
+          setStatus({ success: true });
+          setSubmitting(false);
+          setLocalStorage('user', data.user);
+          setLocalStorage('session', data.session);
+
+          navigate('/');
         }}
       >
         {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) => (
           <form noValidate onSubmit={handleSubmit} {...others}>
             <FormControl fullWidth error={Boolean(touched.email && errors.email)} sx={{ ...theme.typography.customInput }}>
-              <InputLabel htmlFor="outlined-adornment-email-login">Email Address / Username</InputLabel>
+              <InputLabel htmlFor="outlined-adornment-email-login">Email</InputLabel>
               <OutlinedInput
                 id="outlined-adornment-email-login"
                 type="email"
@@ -98,7 +95,7 @@ const FirebaseLogin = ({ ...others }) => {
                 name="email"
                 onBlur={handleBlur}
                 onChange={handleChange}
-                label="Email Address / Username"
+                label="Email"
                 inputProps={{}}
               />
               {touched.email && errors.email && (
@@ -109,7 +106,7 @@ const FirebaseLogin = ({ ...others }) => {
             </FormControl>
 
             <FormControl fullWidth error={Boolean(touched.password && errors.password)} sx={{ ...theme.typography.customInput }}>
-              <InputLabel htmlFor="outlined-adornment-password-login">Password</InputLabel>
+              <InputLabel htmlFor="outlined-adornment-password-login">Contraseña</InputLabel>
               <OutlinedInput
                 id="outlined-adornment-password-login"
                 type={showPassword ? 'text' : 'password'}
@@ -130,7 +127,7 @@ const FirebaseLogin = ({ ...others }) => {
                     </IconButton>
                   </InputAdornment>
                 }
-                label="Password"
+                label="Contraseña"
                 inputProps={{}}
               />
               {touched.password && errors.password && (
@@ -139,17 +136,11 @@ const FirebaseLogin = ({ ...others }) => {
                 </FormHelperText>
               )}
             </FormControl>
-            <Stack direction="row" alignItems="center" justifyContent="space-between" spacing={1}>
-              <FormControlLabel
-                control={
-                  <Checkbox checked={checked} onChange={(event) => setChecked(event.target.checked)} name="checked" color="primary" />
-                }
-                label="Remember me"
-              />
-              <Typography variant="subtitle1" color="secondary" sx={{ textDecoration: 'none', cursor: 'pointer' }}>
-                Forgot Password?
-              </Typography>
-            </Stack>
+            {/*<Stack direction="row" alignItems="center" justifyContent="space-between" spacing={1}>*/}
+            {/*  <Typography variant="subtitle1" color="secondary" sx={{ textDecoration: 'none', cursor: 'pointer' }}>*/}
+            {/*    Forgot Password?*/}
+            {/*  </Typography>*/}
+            {/*</Stack>*/}
             {errors.submit && (
               <Box sx={{ mt: 3 }}>
                 <FormHelperText error>{errors.submit}</FormHelperText>

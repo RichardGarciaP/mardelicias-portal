@@ -10,8 +10,6 @@ import AuthCardWrapper from '../AuthCardWrapper';
 import AuthLogin from '../auth-forms/AuthLogin';
 import Logo from 'ui-component/Logo';
 
-
-
 const Login = () => {
   const theme = useTheme();
   const matchDownSM = useMediaQuery(theme.breakpoints.down('md'));
@@ -24,9 +22,9 @@ const Login = () => {
             <Grid item sx={{ m: { xs: 1, sm: 3 }, mb: 0 }}>
               <AuthCardWrapper>
                 <Grid container spacing={2} alignItems="center" justifyContent="center">
-                  <Grid item sx={{ mb: 3 }}>
-                    <Link to="#">
-                      <Logo />
+                  <Grid item>
+                    <Link to="/">
+                      <img src={`logo.png`} width={90} height={90} />
                     </Link>
                   </Grid>
                   <Grid item xs={12}>
@@ -34,10 +32,10 @@ const Login = () => {
                       <Grid item>
                         <Stack alignItems="center" justifyContent="center" spacing={1}>
                           <Typography color={theme.palette.secondary.main} gutterBottom variant={matchDownSM ? 'h3' : 'h2'}>
-                            Hi, Welcome Back
+                            Hola, Bienvenido de vuelta
                           </Typography>
                           <Typography variant="caption" fontSize="16px" textAlign={matchDownSM ? 'center' : 'inherit'}>
-                            Enter your credentials to continue
+                            Ingrese sus credenciales
                           </Typography>
                         </Stack>
                       </Grid>
