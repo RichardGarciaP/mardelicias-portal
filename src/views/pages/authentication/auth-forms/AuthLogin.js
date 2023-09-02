@@ -78,8 +78,8 @@ const FirebaseLogin = ({ ...others }) => {
 
           setStatus({ success: true });
           setSubmitting(false);
-          setLocalStorage('user', data.user);
-          setLocalStorage('session', data.session);
+          setLocalStorage('user', JSON.stringify(data.user));
+          setLocalStorage('session', JSON.stringify(data.session));
 
           navigate('/');
         }}
