@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
-import MainCard from '../../../../ui-component/cards/MainCard';
-import UserDetail from '../../../pages/users/UserDetailForm';
-import { createUser } from '../../../../services/users/users';
+import MainCard from '../../../ui-component/cards/MainCard';
+import UserDetail from '../../pages/users/UserDetailForm';
+import { createUser } from '../../../services/users/users';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 
