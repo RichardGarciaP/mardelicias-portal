@@ -48,7 +48,7 @@ const Users = () => {
 
   return (
     <>
-      <MainCard title="Usuarios">
+      <MainCard title="Usuarios" addButtonLink={{ title: 'Añadir Usuario', url: '/users/add' }}>
         <CustomTable rows={users} columns={columns} loading={loading} />
       </MainCard>
     </>

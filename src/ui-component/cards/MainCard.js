@@ -2,13 +2,19 @@ import PropTypes from 'prop-types';
 import { forwardRef } from 'react';
 
 // material-ui
-import { useTheme } from '@mui/material/styles';
-import { Card, CardContent, CardHeader, Divider, Typography } from '@mui/material';
+import { styled, useTheme } from '@mui/material/styles';
+import { Button, Card, CardContent, CardHeader, Divider, Typography } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 // constant
 const headerSX = {
   '& .MuiCardHeader-action': { mr: 0 }
 };
+const HeaderContainer = styled('div')({
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center'
+});
 
 // ==============================|| CUSTOM MAIN CARD ||============================== //
 
@@ -26,11 +32,13 @@ const MainCard = forwardRef(
       shadow,
       sx = {},
       title,
+      addButtonLink,
       ...others
     },
     ref
   ) => {
     const theme = useTheme();
+    const navigation = useNavigate();
 
     return (
       <Card
@@ -46,7 +54,22 @@ const MainCard = forwardRef(
         }}
       >
         {/* card header and action */}
-        {title && <CardHeader sx={headerSX} title={darkTitle ? <Typography variant="h3">{title}</Typography> : title} action={secondary} />}
+        {title && (
+          <CardHeader
+            sx={headerSX}
+            title={
+              <HeaderContainer>
+                <Typography variant="h4">{title}</Typography>
+                {addButtonLink?.url && addButtonLink?.title && (
+                  <Button disableElevation size="large" variant="contained" color="secondary" onClick={() => navigation(addButtonLink.url)}>
+                    {addButtonLink.title}
+                  </Button>
+                )}
+              </HeaderContainer>
+            }
+            action={secondary}
+          />
+        )}
 
         {/* content & header divider */}
         {title && <Divider />}

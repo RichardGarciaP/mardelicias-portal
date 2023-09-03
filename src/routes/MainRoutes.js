@@ -41,6 +41,10 @@ const MainRoutes = {
         {
           path: ':id',
           element: <UserDescription />
+        },
+        {
+          path: 'add',
+          element: <UserDescription />
         }
       ]
     },
@@ -53,6 +57,10 @@ const MainRoutes = {
         },
         {
           path: ':id',
+          element: <ProductDetails />
+        },
+        {
+          path: 'add',
           element: <ProductDetails />
         }
       ]
