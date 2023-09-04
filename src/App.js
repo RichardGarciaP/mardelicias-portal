@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { ThemeProvider } from '@mui/material/styles';
 import { CssBaseline, StyledEngineProvider } from '@mui/material';
 import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 // routing
 import Routes from 'routes';
@@ -25,11 +26,7 @@ const App = () => {
         <NavigationScroll>
           <Routes />
         </NavigationScroll>
-        <ToastContainer
-          autoClose={2000}
-          // hideProgressBar
-          theme="colored"
-        />
+        <ToastContainer autoClose={2000} theme="colored" />
       </ThemeProvider>
     </StyledEngineProvider>
   );

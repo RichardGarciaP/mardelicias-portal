@@ -18,7 +18,7 @@ import AnimateButton from '../../../ui-component/extended/AnimateButton';
 
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import { USERS_TYPE } from '../../utilities/Constants';
+import { USERS_TYPE } from '../../../utils/constants';
 
 const Container = styled('div')({});
 
@@ -43,6 +43,8 @@ const UserDetailForm = ({ initialValues, onSubmit }) => {
     user_type: Yup.string().required('El tipo de usuario es requerido')
   });
 
+  console.log({ initialValues });
+
   return (
     <Container>
       <Formik
@@ -50,7 +52,6 @@ const UserDetailForm = ({ initialValues, onSubmit }) => {
           initialValues ?? {
             first_name: '',
             last_name: '',
-            type: '',
             phone: '',
             email: '',
             password: '',

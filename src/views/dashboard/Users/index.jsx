@@ -6,7 +6,7 @@ import TableActions from '../../../ui-component/table/table-actions/TableActions
 import { useNavigate } from 'react-router-dom';
 
 const Users = () => {
-  const { users, loading } = useUsers();
+  const { users, isLoading } = useUsers();
 
   const navigate = useNavigate();
 
@@ -46,10 +46,12 @@ const Users = () => {
     }
   ];
 
+  if (isLoading) return null;
+
   return (
     <>
       <MainCard title="Usuarios" addButtonLink={{ title: 'Añadir Usuario', url: '/users/add' }}>
-        <CustomTable rows={users} columns={columns} loading={loading} />
+        <CustomTable rows={users} columns={columns} loading={isLoading} />
       </MainCard>
     </>
   );

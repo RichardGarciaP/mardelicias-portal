@@ -1,30 +1,14 @@
-import {useEffect, useState} from "react";
-import {getAllUsers} from "../services/users/users";
-
+import { getAllUsers } from '../services/users/users';
+import useSWR from 'swr';
 
 const useUsers = () => {
-    const [users, setUsers] = useState([]);
-    const [loading, setLoading] = useState(false);
+  const { data, error, isLoading } = useSWR(`/users/`, () => getAllUsers());
 
-    const getUsers = async () => {
-        setLoading(true);
-        const usersPromise = getAllUsers();
-
-        const [usersResult] = await Promise.all([usersPromise]);
-        console.log(usersResult?.data?.users)
-        setUsers(usersResult?.data?.users);
-        setLoading(false);
-    };
-
-    useEffect(()=>{
-        getUsers();
-    }, [])
-
-    return {
-        users,
-        loading
-    }
-
+  return {
+    users: data?.data?.users,
+    isLoading,
+    error
+  };
 };
 
 export default useUsers;
