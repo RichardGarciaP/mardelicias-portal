@@ -8,27 +8,37 @@ export const getOneUser = async (id) => {
   return await supabase.auth.admin.getUserById(id);
 };
 
-export const createUser = async ({ first_name, last_name, phone, email, password }) => {
+export const createUser = async (data) => {
+  console.log(data);
   return await supabase.auth.admin.createUser({
-    email,
-    phone,
-    password,
+    email: data?.email,
+    password: data?.password,
+    phone: data?.phone,
     user_metadata: {
-      first_name,
-      last_name
+      dni: data?.dni,
+      first_name: data?.first_name,
+      last_name: data?.last_name,
+      city: data?.city,
+      direction: data?.direction,
+      direction_detail: data?.direction_detail,
+      role: data?.role
     }
   });
 };
 
 export const updateUser = async (id, data) => {
   return await supabase.auth.admin.updateUserById(id, {
-    phone: data?.phone,
     email: data?.email,
     password: data?.password,
+    phone: data?.phone,
     user_metadata: {
+      dni: data?.dni,
       first_name: data?.first_name,
       last_name: data?.last_name,
-      user_type: data?.user_type
+      city: data?.city,
+      direction: data?.direction,
+      direction_detail: data?.direction_detail,
+      role: data?.role
     }
   });
 };

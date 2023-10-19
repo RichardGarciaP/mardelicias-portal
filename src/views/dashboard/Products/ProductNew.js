@@ -1,36 +1,37 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import MainCard from '../../../ui-component/cards/MainCard';
-import UserDetail from '../../pages/users/UserDetailForm';
 import { createUser } from '../../../services/users/users';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
+import ProductDetailForm from '../../pages/products/ProductDetailForm';
+import { insertEntity } from '../../../services/methods';
 
-const UserNew = () => {
+const ENTITY_NAME = 'products';
+
+const ProductNew = () => {
   const navigation = useNavigate();
   const onSubmit = async (values, { setErrors, setStatus, setSubmitting }) => {
-    const { data, error } = await createUser(values);
-    console.log('error', error);
-    console.log('data', data);
+    const { data, error } = await insertEntity(ENTITY_NAME, values);
     if (error) {
       setErrors({ submit: error.message });
       setStatus({ success: false });
       setSubmitting(false);
-      toast.error('Error al crear el usuario');
+      toast.error('Error al crear el producto');
       return;
     }
 
     setStatus({ success: true });
     setSubmitting(false);
 
-    toast.success('Usuario creado correctamente');
-    navigation('/users');
+    toast.success('Producto creado correctamente');
+    navigation('/products');
   };
 
   return (
-    <MainCard title="Añadir Nuevo Usuario">
-      <UserDetail onSubmit={onSubmit} />
+    <MainCard title="Añadir Nuevo Producto">
+      <ProductDetailForm onSubmit={onSubmit} />
     </MainCard>
   );
 };
 
-export default UserNew;
+export default ProductNew;

@@ -7,6 +7,9 @@ import UserDescription from '../views/dashboard/Users/UserDescription';
 import Products from '../views/dashboard/Products';
 import ProductDetails from '../views/dashboard/Products/ProductDetails';
 import UserNew from '../views/dashboard/Users/UserNew';
+import ProductNew from '../views/dashboard/Products/ProductNew';
+import Orders from '../views/dashboard/Orders';
+import OrderDetails from '../views/dashboard/Orders/OrderDetails';
 
 // dashboard routing
 const DashboardDefault = Loadable(lazy(() => import('views/dashboard/Default')));
@@ -55,13 +58,22 @@ const MainRoutes = {
         },
         {
           path: 'add',
-          element: <ProductDetails />
+          element: <ProductNew />
         }
       ]
     },
     {
       path: '/orders',
-      element: <Products />
+      children: [
+        {
+          path: '',
+          element: <Orders />
+        },
+        {
+          path: ':id',
+          element: <OrderDetails />
+        }
+      ]
     },
     {
       path: 'sample-page',

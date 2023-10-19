@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 
 const Users = () => {
   const { users, isLoading } = useUsers();
+  console.log(users);
 
   const navigate = useNavigate();
 
@@ -20,8 +21,12 @@ const Users = () => {
       headerName: 'ID',
       flex: 1
     },
-    { field: 'fist_name', headerName: 'First name', flex: 1, valueGetter: (params) => `${params.row.user_metadata.first_name || ''}` },
-    { field: 'last_name', headerName: 'Last name', flex: 1, valueGetter: (params) => `${params.row.user_metadata.last_name || ''}` },
+    {
+      field: 'dni',
+      headerName: 'Cédula',
+      flex: 1,
+      valueGetter: (params) => `${params.row.user_metadata.dni || ''}`
+    },
     {
       field: 'user_metadata',
       headerName: 'Nombre Completo',

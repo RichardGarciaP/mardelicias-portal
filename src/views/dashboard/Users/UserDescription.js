@@ -43,7 +43,7 @@ const UserDescription = () => {
           ...user?.user_metadata,
           email: user?.email,
           phone: user?.phone,
-          user_type: user?.user_metadata?.user_type ?? USERS_TYPE_DEFINITIONS.WINEMARKER,
+          role: user?.user_metadata?.role ?? USERS_TYPE_DEFINITIONS.WINEMARKER,
           password: '',
           submit: null
         }}

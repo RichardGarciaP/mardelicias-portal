@@ -18,9 +18,13 @@ import AnimateButton from '../../../ui-component/extended/AnimateButton';
 
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import { USERS_TYPE } from '../../../utils/constants';
+import { dniRegExp, phoneRegExp, USERS_TYPE } from '../../../utils/constants';
 
-const Container = styled('div')({});
+const Container = styled('div')({
+  '& .MuiInputBase-inputMultiline': {
+    paddingTop: '1.5rem'
+  }
+});
 
 const UserDetailForm = ({ initialValues, onSubmit }) => {
   const theme = useTheme();
@@ -35,27 +39,33 @@ const UserDetailForm = ({ initialValues, onSubmit }) => {
   };
 
   const validations = Yup.object().shape({
+    dni: Yup.string().matches(dniRegExp, 'El número de cédula es invalido').required('El número de cédula'),
     first_name: Yup.string().min(3).required('El nombre es requerido'),
     last_name: Yup.string().min(3).required('El apellido es requerido'),
-    phone: Yup.string().min(9).max(9).required('El numero de celular es requerido'),
+    phone: Yup.string().required('El número de celular es requerido'),
     email: Yup.string().email('El email debe ser valido').max(255).required('El email es requerido'),
     password: Yup.string().max(255).required('La contraseña es requerida'),
-    user_type: Yup.string().required('El tipo de usuario es requerido')
+    role: Yup.string().required('El tipo de usuario es requerido'),
+    city: Yup.string().required('La ciudad es requerida'),
+    direction: Yup.string().required('La dirección es requerida'),
+    direction_detail: Yup.string().required('El detalle de la dirección es requerida')
   });
-
-  console.log({ initialValues });
 
   return (
     <Container>
       <Formik
         initialValues={
           initialValues ?? {
+            dni: '',
             first_name: '',
             last_name: '',
             phone: '',
             email: '',
             password: '',
-            user_type: '',
+            role: '',
+            city: '',
+            direction: '',
+            direction_detail: '',
             submit: null
           }
         }
@@ -65,6 +75,26 @@ const UserDetailForm = ({ initialValues, onSubmit }) => {
         {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) => (
           <form noValidate onSubmit={handleSubmit}>
             <Grid container spacing={2}>
+              <Grid item xs={12} md={6}>
+                <FormControl fullWidth error={Boolean(touched.dni && errors.dni)} sx={{ ...theme.typography.customInput }}>
+                  <InputLabel htmlFor="outlined-adornment-dni">Cédula</InputLabel>
+                  <OutlinedInput
+                    id="outlined-adornment-dni"
+                    type="tel"
+                    value={values.dni}
+                    name="dni"
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                    label="Cédula"
+                  />
+                  {touched.dni && errors.dni && (
+                    <FormHelperText error id="standard-weight-helper-text-dni">
+                      {errors.dni}
+                    </FormHelperText>
+                  )}
+                </FormControl>
+              </Grid>
+
               <Grid item xs={12} md={6}>
                 <FormControl fullWidth error={Boolean(touched.first_name && errors.first_name)} sx={{ ...theme.typography.customInput }}>
                   <InputLabel htmlFor="outlined-adornment-first-name">Nombre</InputLabel>
@@ -175,13 +205,13 @@ const UserDetailForm = ({ initialValues, onSubmit }) => {
                 </FormControl>
               </Grid>
               <Grid item xs={12} md={6}>
-                <FormControl fullWidth error={Boolean(touched.user_type && errors.user_type)} sx={{ ...theme.typography.customInput }}>
-                  <InputLabel htmlFor="outlined-adornment-user-type">Tipo de usuario</InputLabel>
+                <FormControl fullWidth error={Boolean(touched.role && errors.role)} sx={{ ...theme.typography.customInput }}>
+                  <InputLabel htmlFor="outlined-adornment-role">Tipo de usuario</InputLabel>
                   <Select
-                    labelId="outlined-adornment-user-type"
+                    labelId="outlined-adornment-role"
                     id="demo-simple-select"
-                    value={values.user_type}
-                    name="user_type"
+                    value={values.role}
+                    name="role"
                     label="Tipo de usuario"
                     onBlur={handleBlur}
                     onChange={handleChange}
@@ -193,13 +223,77 @@ const UserDetailForm = ({ initialValues, onSubmit }) => {
                       </MenuItem>
                     ))}
                   </Select>
-                  {touched.user_type && errors.user_type && (
-                    <FormHelperText error id="standard-weight-helper-text-phone">
-                      {errors.user_type}
+                  {touched.role && errors.role && (
+                    <FormHelperText error id="standard-weight-helper-text-role">
+                      {errors.role}
                     </FormHelperText>
                   )}
                 </FormControl>
               </Grid>
+              <Grid item xs={12} md={6}>
+                <FormControl fullWidth error={Boolean(touched.city && errors.city)} sx={{ ...theme.typography.customInput }}>
+                  <InputLabel htmlFor="outlined-adornment-city">Ciudad</InputLabel>
+                  <OutlinedInput
+                    id="outlined-adornment-city"
+                    type="text"
+                    value={values.city}
+                    name="city"
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                    label="Ciudad"
+                  />
+                  {touched.city && errors.city && (
+                    <FormHelperText error id="standard-weight-helper-text-city">
+                      {errors.city}
+                    </FormHelperText>
+                  )}
+                </FormControl>
+              </Grid>
+              <Grid item xs={12} md={6}>
+                <FormControl fullWidth error={Boolean(touched.direction && errors.direction)} sx={{ ...theme.typography.customInput }}>
+                  <InputLabel htmlFor="outlined-adornment-direction">Dirección</InputLabel>
+                  <OutlinedInput
+                    id="outlined-adornment-direction"
+                    type="text"
+                    value={values.direction}
+                    name="direction"
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                    label="Dirección"
+                  />
+                  {touched.direction && errors.direction && (
+                    <FormHelperText error id="standard-weight-helper-text-direction">
+                      {errors.direction}
+                    </FormHelperText>
+                  )}
+                </FormControl>
+              </Grid>
+              <Grid item xs={12} md={6}>
+                <FormControl
+                  fullWidth
+                  error={Boolean(touched.direction_detail && errors.direction_detail)}
+                  sx={{ ...theme.typography.customInput }}
+                >
+                  <InputLabel htmlFor="outlined-adornment-direction_detail">Detalle de la Dirección</InputLabel>
+                  <OutlinedInput
+                    id="outlined-adornment-direction_detail"
+                    type="text"
+                    value={values.direction_detail}
+                    name="direction_detail"
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                    label="Dirección"
+                    multiline
+                    minRows={4}
+                  />
+                  {touched.direction_detail && errors.direction_detail && (
+                    <FormHelperText error id="standard-weight-helper-text-direction_detail">
+                      {errors.direction_detail}
+                    </FormHelperText>
+                  )}
+                </FormControl>
+              </Grid>
+
               <Grid item xs={12}>
                 {errors.submit && (
                   <Box sx={{ mt: 3 }}>

@@ -1,13 +1,13 @@
 import MainCard from '../../../ui-component/cards/MainCard';
 import CustomTable from '../../../ui-component/table/CustomTable';
 import CustomLink from '../../../ui-component/custom-link/CustomLink';
-import useProducts from '../../../hooks/useProducts';
+import useEntity from '../../../hooks/useEntity';
 import TableActions from '../../../ui-component/table/table-actions/TableActions';
 import { useNavigate } from 'react-router-dom';
 import { isBrowser } from '../../../utils/utils';
 
 const Products = () => {
-  const { products, isLoading, deleteProduct } = useProducts();
+  const { data, isLoading, deleteProduct } = useEntity('products');
   const navigate = useNavigate();
 
   const onEdit = (id) => {
@@ -56,8 +56,8 @@ const Products = () => {
 
   return (
     <>
-      <MainCard title="Productos">
-        <CustomTable rows={products} columns={columns} loading={isLoading} />
+      <MainCard title="Productos" addButtonLink={{ title: 'Añadir Producto', url: '/products/add' }}>
+        <CustomTable rows={data} columns={columns} loading={isLoading} />
       </MainCard>
     </>
   );
