@@ -18,7 +18,10 @@ const OrderDetails = () => {
 
   console.log(data);
   const onSubmit = async (values, { setErrors, setStatus, setSubmitting }) => {
-    const { error } = await updateEntity('orders', { id, ...values });
+    console.log('id de la orden', id);
+    const user = values.users;
+    delete values.users;
+    const { error } = await updateEntity('orders', { id, user_id: user.id, ...values });
     if (error) {
       setErrors({ submit: error.message });
       setStatus({ success: false });

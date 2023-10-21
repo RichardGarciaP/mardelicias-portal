@@ -11,51 +11,47 @@ import TotalIncomeDarkCard from './TotalIncomeDarkCard';
 import TotalIncomeLightCard from './TotalIncomeLightCard';
 import TotalGrowthBarChart from './TotalGrowthBarChart';
 import { gridSpacing } from 'store/constant';
-import {getLocalStorage} from "../../../utils/utils";
-import {useNavigate} from "react-router-dom";
-
+import { getLocalStorage } from '../../../utils/utils';
+import { useNavigate } from 'react-router-dom';
+import useOrders from '../../../hooks/useOrders';
 
 const Dashboard = () => {
   const navigate = useNavigate();
+
+  const { totalOrders, totalSells, isLoading: isLoadingOrders, isLoadingTotalSells } = useOrders();
+
   const [isLoading, setLoading] = useState(true);
+
   useEffect(() => {
     setLoading(false);
-    if (!getLocalStorage('user') && !getLocalStorage('session')){
-        navigate('/login');
+    if (!getLocalStorage('user') && !getLocalStorage('session')) {
+      navigate('/login');
     }
   }, []);
 
   return (
     <Grid container spacing={gridSpacing}>
-      <Grid item xs={12}>
-        <Grid container spacing={gridSpacing}>
-          <Grid item lg={4} md={6} sm={6} xs={12}>
-            <EarningCard isLoading={isLoading} />
+      <Grid item container xs={12} md={8} spacing={gridSpacing}>
+        <Grid item xs={12}>
+          <Grid container spacing={gridSpacing}>
+            <Grid item md={6} sm={6} xs={12}>
+              <EarningCard isLoading={isLoadingTotalSells} value={totalSells} />
+            </Grid>
+            <Grid item md={6} sm={6} xs={12}>
+              <TotalOrderLineChartCard isLoading={isLoadingOrders} value={totalOrders} />
+            </Grid>
           </Grid>
-          <Grid item lg={4} md={6} sm={6} xs={12}>
-            <TotalOrderLineChartCard isLoading={isLoading} />
-          </Grid>
-          <Grid item lg={4} md={12} sm={12} xs={12}>
-            <Grid container spacing={gridSpacing}>
-              <Grid item sm={6} xs={12} md={6} lg={12}>
-                <TotalIncomeDarkCard isLoading={isLoading} />
-              </Grid>
-              <Grid item sm={6} xs={12} md={6} lg={12}>
-                <TotalIncomeLightCard isLoading={isLoading} />
-              </Grid>
+        </Grid>
+        <Grid item xs={12}>
+          <Grid container spacing={gridSpacing}>
+            <Grid item xs={12}>
+              <TotalGrowthBarChart isLoading={isLoading} />
             </Grid>
           </Grid>
         </Grid>
       </Grid>
-      <Grid item xs={12}>
-        <Grid container spacing={gridSpacing}>
-          <Grid item xs={12} md={8}>
-            <TotalGrowthBarChart isLoading={isLoading} />
-          </Grid>
-          <Grid item xs={12} md={4}>
-            <PopularCard isLoading={isLoading} />
-          </Grid>
-        </Grid>
+      <Grid item xs={12} md={4}>
+        <PopularCard isLoading={isLoading} />
       </Grid>
     </Grid>
   );
