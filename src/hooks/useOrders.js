@@ -1,6 +1,6 @@
 import useSWR from 'swr';
 
-import { getOrders, getTotalFromAllOrders } from '../services/orders/orders';
+import { getLastOrders, getOrders, getTotalFromAllOrders } from '../services/orders/orders';
 import { useEffect, useState } from 'react';
 
 const useOrders = () => {
@@ -8,9 +8,11 @@ const useOrders = () => {
   const [totalOrders, setTotalOrders] = useState(0);
   const [totalSells, setTotalSells] = useState(0);
 
-  const { data, error, isLoading } = useSWR(`/${ENTITY}`, () => getOrders(ENTITY));
+  const { data, error, isLoading } = useSWR(`/${ENTITY}`, () => getOrders());
   const { data: dataTotalSell, isLoading: isLoadingTotalSells } = useSWR(`/${ENTITY}/totals`, () => getTotalFromAllOrders(ENTITY));
+  const { data: dataLastOrders, isLoading: isLoadingLastOrders } = useSWR(`/${ENTITY}/last-orders`, () => getLastOrders());
 
+  console.log(data);
   const getTotalSells = () => {
     let totalSum = 0;
     data?.data?.forEach(({ total }) => {
@@ -41,6 +43,8 @@ const useOrders = () => {
     totalSells,
     isLoading,
     isLoadingTotalSells,
+    dataLastOrders: dataLastOrders?.data,
+    isLoadingLastOrders,
     error
   };
 };

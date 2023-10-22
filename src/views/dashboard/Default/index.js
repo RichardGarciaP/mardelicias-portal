@@ -7,8 +7,6 @@ import { Grid } from '@mui/material';
 import EarningCard from './EarningCard';
 import PopularCard from './PopularCard';
 import TotalOrderLineChartCard from './TotalOrderLineChartCard';
-import TotalIncomeDarkCard from './TotalIncomeDarkCard';
-import TotalIncomeLightCard from './TotalIncomeLightCard';
 import TotalGrowthBarChart from './TotalGrowthBarChart';
 import { gridSpacing } from 'store/constant';
 import { getLocalStorage } from '../../../utils/utils';
@@ -18,7 +16,7 @@ import useOrders from '../../../hooks/useOrders';
 const Dashboard = () => {
   const navigate = useNavigate();
 
-  const { totalOrders, totalSells, isLoading: isLoadingOrders, isLoadingTotalSells } = useOrders();
+  const { totalOrders, totalSells, isLoading: isLoadingOrders, isLoadingTotalSells, dataLastOrders, isLoadingLastOrders } = useOrders();
 
   const [isLoading, setLoading] = useState(true);
 
@@ -51,7 +49,7 @@ const Dashboard = () => {
         </Grid>
       </Grid>
       <Grid item xs={12} md={4}>
-        <PopularCard isLoading={isLoading} />
+        <PopularCard isLoading={isLoadingLastOrders} lastOrders={dataLastOrders} />
       </Grid>
     </Grid>
   );

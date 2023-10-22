@@ -27,7 +27,9 @@ const Orders = () => {
       field: 'users',
       headerName: 'Cliente',
       flex: 1,
-      renderCell: (params) => <CustomLink url={`${params.row.users.id}`} title={params.row.users.last_name} />
+      renderCell: (params) => (
+        <CustomLink url={`${params.row.users.id}`} title={`${params.row.users.first_name} ${params.row.users.last_name}`} />
+      )
     },
     {
       field: 'payment_method',
