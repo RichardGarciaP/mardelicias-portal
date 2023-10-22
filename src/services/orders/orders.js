@@ -13,4 +13,4 @@ export const getOrder = async (id) =>
     )
     .eq('id', id);
 
-export const getTotalFromAllOrders = async () => await supabase.from(ENTITY_NAME).select('id, total').neq('status', 'entregado');
+export const getTotalFromAllOrders = async () => await supabase.from(ENTITY_NAME).select('id, total').eq('status', 'entregado');
