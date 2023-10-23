@@ -16,11 +16,16 @@ const SkeletonCustomTable = () => {
             <TableCell>
               <Skeleton variant="text" />
             </TableCell>
-            {/* Agrega más encabezados de columna según sea necesario */}
+            <TableCell>
+              <Skeleton variant="text" />
+            </TableCell>
+            <TableCell>
+              <Skeleton variant="text" />
+            </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {Array.from(Array(5).keys()).map((index) => (
+          {Array.from(Array(6).keys()).map((index) => (
             <TableRow key={index}>
               <TableCell>
                 <Skeleton variant="text" />
@@ -31,7 +36,12 @@ const SkeletonCustomTable = () => {
               <TableCell>
                 <Skeleton variant="text" />
               </TableCell>
-              {/* Agrega más celdas de tabla según sea necesario */}
+              <TableCell>
+                <Skeleton variant="text" />
+              </TableCell>
+              <TableCell>
+                <Skeleton variant="text" />
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>
