@@ -19,4 +19,8 @@ export const getOrder = async (id) =>
 export const getTotalFromAllOrders = async () => await supabase.from(ENTITY_NAME).select('id, total').eq('status', 'entregado');
 
 export const getLastOrders = async () =>
-  await supabase.from(ENTITY_NAME).select('id, total, users (first_name, last_name)').limit(6).order('created_at', { ascending: false });
+  await supabase
+    .from(ENTITY_NAME)
+    .select('id, total, created_at, users (first_name, last_name)')
+    .limit(6)
+    .order('created_at', { ascending: false });

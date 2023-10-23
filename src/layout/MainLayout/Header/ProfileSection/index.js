@@ -16,7 +16,6 @@ import {
   ListItemText,
   Paper,
   Popper,
-  Stack,
   Typography
 } from '@mui/material';
 
@@ -104,7 +103,6 @@ const ProfileSection = () => {
         }}
         icon={
           <Avatar
-            src={User1}
             sx={{
               ...theme.typography.mediumAvatar,
               margin: '8px 0 8px 8px !important',
@@ -147,16 +145,6 @@ const ProfileSection = () => {
             <Paper>
               <ClickAwayListener onClickAway={handleClose}>
                 <MainCard border={false} elevation={16} content={false} boxShadow shadow={theme.shadows[16]}>
-                  {/*<Box sx={{ p: 2, pb: 0 }}>*/}
-                  {/*  <Stack>*/}
-                  {/*    <Stack direction="row" spacing={0.5} alignItems="center">*/}
-                  {/*      <Typography variant="h4">Good Morning,</Typography>*/}
-                  {/*      <Typography component="span" variant="h4" sx={{ fontWeight: 400 }}>*/}
-                  {/*        John Doe*/}
-                  {/*      </Typography>*/}
-                  {/*    </Stack>*/}
-                  {/*  </Stack>*/}
-                  {/*</Box>*/}
                   <PerfectScrollbar style={{ height: '100%', maxHeight: 'calc(100vh - 250px)', overflowX: 'hidden' }}>
                     <Box sx={{ p: 2 }}>
                       <List
@@ -175,16 +163,6 @@ const ProfileSection = () => {
                           }
                         }}
                       >
-                        {/*<ListItemButton*/}
-                        {/*  sx={{ borderRadius: `${customization.borderRadius}px` }}*/}
-                        {/*  selected={selectedIndex === 0}*/}
-                        {/*  onClick={(event) => handleListItemClick(event, 0, '#')}*/}
-                        {/*>*/}
-                        {/*  <ListItemIcon>*/}
-                        {/*    <IconSettings stroke={1.5} size="1.3rem" />*/}
-                        {/*  </ListItemIcon>*/}
-                        {/*  <ListItemText primary={<Typography variant="body2">Account Settings</Typography>} />*/}
-                        {/*</ListItemButton>*/}
                         <ListItemButton
                           sx={{ borderRadius: `${customization.borderRadius}px` }}
                           selected={selectedIndex === 4}

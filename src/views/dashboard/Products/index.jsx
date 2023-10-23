@@ -52,8 +52,6 @@ const Products = () => {
     }
   ];
 
-  if (isLoading) return null;
-
   return (
     <>
       <MainCard title="Productos" addButtonLink={{ title: 'Añadir Producto', url: '/products/add' }}>

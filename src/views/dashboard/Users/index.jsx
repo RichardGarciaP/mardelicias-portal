@@ -7,7 +7,6 @@ import { useNavigate } from 'react-router-dom';
 
 const Users = () => {
   const { users, isLoading } = useUsers();
-  console.log(users);
 
   const navigate = useNavigate();
 
@@ -50,8 +49,6 @@ const Users = () => {
       renderCell: (params) => <TableActions onEdit={() => onEdit(params.row.id)} />
     }
   ];
-
-  if (isLoading) return null;
 
   return (
     <>

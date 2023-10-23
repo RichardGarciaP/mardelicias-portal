@@ -13,11 +13,11 @@ import { gridSpacing } from 'store/constant';
 import ChevronRightOutlinedIcon from '@mui/icons-material/ChevronRightOutlined';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { useNavigate } from 'react-router-dom';
+import moment from 'moment';
 
 // ==============================|| DASHBOARD DEFAULT - POPULAR CARD ||============================== //
 
 const PopularCard = ({ isLoading, lastOrders }) => {
-  const theme = useTheme();
   const navigation = useNavigate();
 
   const handleShowMore = () => {
@@ -54,9 +54,11 @@ const PopularCard = ({ isLoading, lastOrders }) => {
                         <Grid item>
                           <Grid container alignItems="center" justifyContent="space-between" spacing={2}>
                             <Grid item>
-                              <Typography variant="subtitle1" color="inherit">
-                                ${order.total}
-                              </Typography>
+                              {order?.created_at && (
+                                <Typography variant="subtitle1" color="inherit">
+                                  {moment(order.created_at).format('L, LT')}
+                                </Typography>
+                              )}
                             </Grid>
                             <Grid item sx={{ alignItems: 'center', color: '#2196f3', display: 'flex' }}>
                               <IconButton onClick={() => handleShowOrder(2)}>

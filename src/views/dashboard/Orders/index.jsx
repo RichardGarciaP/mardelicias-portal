@@ -60,8 +60,6 @@ const Orders = () => {
     }
   ];
 
-  if (isLoading) return null;
-
   return (
     <>
       <MainCard title="Ordenes">
