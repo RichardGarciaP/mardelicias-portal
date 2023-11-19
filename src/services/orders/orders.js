@@ -5,7 +5,7 @@ const ENTITY_NAME = 'orders';
 export const getOrders = async () =>
   await supabase
     .from(ENTITY_NAME)
-    .select(`id, created_at, payment_method, status, total, users (id, first_name, last_name)`)
+    .select(`id, created_at, payment_method, status, total, users!orders_user_id_fkey (id, first_name, last_name)`)
     .order('created_at', { ascending: false });
 
 export const getOrder = async (id) =>
@@ -21,6 +21,6 @@ export const getTotalFromAllOrders = async () => await supabase.from(ENTITY_NAME
 export const getLastOrders = async () =>
   await supabase
     .from(ENTITY_NAME)
-    .select('id, total, created_at, users (first_name, last_name)')
+    .select('id, total, created_at, users (first_name, last_name, direction)')
     .limit(6)
     .order('created_at', { ascending: false });

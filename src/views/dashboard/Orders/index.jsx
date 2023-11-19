@@ -28,7 +28,7 @@ const Orders = () => {
       headerName: 'Cliente',
       flex: 1,
       renderCell: (params) => (
-        <CustomLink url={`${params.row.users.id}`} title={`${params.row.users.first_name} ${params.row.users.last_name}`} />
+        <CustomLink url={`/users/${params.row.users.id}`} title={`${params.row.users.first_name} ${params.row.users.last_name}`} />
       )
     },
     {

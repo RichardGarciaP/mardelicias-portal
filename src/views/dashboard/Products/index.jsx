@@ -1,6 +1,5 @@
 import MainCard from '../../../ui-component/cards/MainCard';
 import CustomTable from '../../../ui-component/table/CustomTable';
-import CustomLink from '../../../ui-component/custom-link/CustomLink';
 import useEntity from '../../../hooks/useEntity';
 import TableActions from '../../../ui-component/table/table-actions/TableActions';
 import { useNavigate } from 'react-router-dom';
@@ -29,8 +28,7 @@ const Products = () => {
     {
       field: 'name',
       headerName: 'Nombre',
-      flex: 1,
-      renderCell: (params) => <CustomLink url={`${params.row.id}`} title={params.row.name} />
+      flex: 1
     },
     {
       field: 'price',

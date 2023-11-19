@@ -9,7 +9,6 @@ export const getOneUser = async (id) => {
 };
 
 export const createUser = async (data) => {
-  console.log(data);
   return await supabase.auth.admin.createUser({
     email: data?.email,
     password: data?.password,

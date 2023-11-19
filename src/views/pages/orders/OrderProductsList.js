@@ -2,7 +2,7 @@ import React from 'react';
 import CustomTable from '../../../ui-component/table/CustomTable';
 import { Box, Typography } from '@mui/material';
 
-const OrderProductsList = ({ data, products }) => {
+const OrderProductsList = ({ data }) => {
   const columns = [
     {
       field: 'id',
@@ -27,7 +27,7 @@ const OrderProductsList = ({ data, products }) => {
   ];
   return (
     <Box sx={{ minHeight: 422 }}>
-      <CustomTable rows={products} columns={columns} hideFooterPagination />
+      <CustomTable rows={data?.products} columns={columns} hideFooterPagination />
       <Typography sx={{ display: 'flex', justifyContent: 'right', paddingTop: '1.5rem' }}>
         <strong style={{ marginRight: '2rem' }}>Total: </strong>${data?.total}
       </Typography>

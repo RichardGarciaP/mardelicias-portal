@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useParams } from 'react-router';
 import { toast } from 'react-toastify';
 
@@ -12,11 +12,13 @@ import { useNavigate } from 'react-router-dom';
 const ProductDetails = () => {
   const { id } = useParams();
   const navigation = useNavigate();
+  const [selectedImage, setSelectedImage] = useState(null);
 
   const { data, isLoading } = useProductDescription(id);
 
   const onSubmit = async (values, { setErrors, setStatus, setSubmitting }) => {
     const { error } = await updateEntity('products', { id, ...values });
+
     if (error) {
       setErrors({ submit: error.message });
       setStatus({ success: false });
@@ -31,8 +33,6 @@ const ProductDetails = () => {
     navigation('/products');
   };
 
-  console.log(JSON.stringify(data));
-
   if (isLoading) return null;
 
   return (
@@ -42,6 +42,8 @@ const ProductDetails = () => {
         initialValues={{
           ...data
         }}
+        setSelectedImage={setSelectedImage}
+        selectedImage={selectedImage}
       />
     </MainCard>
   );

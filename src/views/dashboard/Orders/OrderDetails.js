@@ -48,7 +48,7 @@ const OrderDetails = () => {
       </Grid>
       <Grid item xs={12} md={6}>
         <MainCard title="Productos">
-          <OrderProductsList products={data?.products} data={data} />
+          <OrderProductsList data={data} />
         </MainCard>
       </Grid>
     </Grid>

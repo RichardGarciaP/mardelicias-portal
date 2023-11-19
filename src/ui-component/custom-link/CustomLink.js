@@ -7,7 +7,7 @@ const SimpleLink = styled(Link)(() => ({
 }));
 
 const CustomLink = ({ url, title }) => {
-  return <SimpleLink to={`/users/${url}`}>{title}</SimpleLink>;
+  return <SimpleLink to={`${url}`}>{title}</SimpleLink>;
 };
 
 export default CustomLink;

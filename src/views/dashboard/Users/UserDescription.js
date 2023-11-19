@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import useSWR from 'swr';
+import React from 'react';
+import { mutate } from 'swr';
 
 import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router';
@@ -30,6 +30,7 @@ const UserDescription = () => {
     setSubmitting(false);
 
     toast.success('Usuario actualizado correctamente');
+    mutate(`/user/${id}`);
     navigation('/users');
   };
 
