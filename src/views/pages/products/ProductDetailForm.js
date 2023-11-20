@@ -1,16 +1,37 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { styled, useTheme } from '@mui/material/styles';
-import { Box, Button, FormControl, FormHelperText, Grid, Input, InputLabel, OutlinedInput } from '@mui/material';
+import { Box, Button, FormControl, FormHelperText, Grid, IconButton, Input, InputLabel, OutlinedInput } from '@mui/material';
 import AnimateButton from '../../../ui-component/extended/AnimateButton';
 
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { DropzoneArea } from 'mui-file-dropzone';
+import { Delete, Image } from '@mui/icons-material';
 
 const Container = styled('div')`
   .description {
     margin-top: 0.75rem !important;
   }
+`;
+
+const ImageWrapper = styled('div')`
+  max-width: 400px;
+  position: relative;
+  .MuiIconButton-root {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    z-index: 2;
+    background-color: #673ab6;
+    color: white;
+  }
+`;
+
+const CustomImage = styled('img')`
+  object-fit: contain;
+  width: 100% !important;
+  position: relative !important;
+  height: unset !important;
 `;
 
 const CustomDropzoneArea = styled(DropzoneArea)`
@@ -21,17 +42,29 @@ const CustomDropzoneArea = styled(DropzoneArea)`
 
 const ProductDetailForm = ({ initialValues, onSubmit, setSelectedImage, selectedImage }) => {
   const theme = useTheme();
+  const [currentImage, setCurrentImage] = useState('');
+
   const handleUploadFile = async (file) => {
     if (file[0]) {
       setSelectedImage(file[0]);
     }
   };
+
+  const onRemoveImage = () => {
+    setCurrentImage('');
+    setSelectedImage(null);
+  };
+
   const validations = Yup.object().shape({
     name: Yup.string().min(3).required('El nombre es requerido'),
     description: Yup.string().min(3).required('La descripción es requerida'),
     price: Yup.number().required('El precio es requerido'),
     stock: Yup.number().required('El stock es requerido')
   });
+
+  useEffect(() => {
+    setCurrentImage(initialValues?.imageUrl);
+  }, [initialValues, initialValues?.imageUrl]);
 
   return (
     <Container>
@@ -140,19 +173,30 @@ const ProductDetailForm = ({ initialValues, onSubmit, setSelectedImage, selected
                 </Grid>
                 <Grid item xs={12}>
                   <FormControl fullWidth error={Boolean(touched.image && errors.image)} sx={{ ...theme.typography.customInput }}>
-                    <CustomDropzoneArea
-                      acceptedFiles={['image/jpeg', 'image/jpg', 'image/png']}
-                      filesLimit={1}
-                      dropzoneText={'Seleccione o arrastre una imagen para el producto'}
-                      onChange={handleUploadFile}
-                      dropzoneClass="drop-zone-product"
-                      showAlerts={false}
-                      maxFileSize={5000000}
-                    />
-                    {touched.image && errors.image && (
-                      <FormHelperText error id="standard-weight-helper-text-image">
-                        {errors.image}
-                      </FormHelperText>
+                    {currentImage ? (
+                      <ImageWrapper>
+                        <IconButton onClick={onRemoveImage} type="button">
+                          <Delete />
+                        </IconButton>
+                        <CustomImage src={currentImage} />
+                      </ImageWrapper>
+                    ) : (
+                      <>
+                        <CustomDropzoneArea
+                          acceptedFiles={['image/jpeg', 'image/jpg', 'image/png']}
+                          filesLimit={1}
+                          dropzoneText={'Seleccione o arrastre una imagen para el producto'}
+                          onChange={handleUploadFile}
+                          dropzoneClass="drop-zone-product"
+                          showAlerts={false}
+                          maxFileSize={5000000}
+                        />
+                        {touched.image && errors.image && (
+                          <FormHelperText error id="standard-weight-helper-text-image">
+                            {errors.image}
+                          </FormHelperText>
+                        )}
+                      </>
                     )}
                   </FormControl>
                 </Grid>
@@ -163,7 +207,7 @@ const ProductDetailForm = ({ initialValues, onSubmit, setSelectedImage, selected
                     <FormHelperText error>{errors.submit}</FormHelperText>
                   </Box>
                 )}
-                {!selectedImage && (
+                {!selectedImage && !currentImage && (
                   <Box sx={{ mt: 3 }}>
                     <FormHelperText error>Seleccione una imagen para el producto</FormHelperText>
                   </Box>

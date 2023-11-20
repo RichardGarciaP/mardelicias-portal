@@ -14,6 +14,7 @@ const ENTITY_NAME = 'products';
 const ProductNew = () => {
   const navigation = useNavigate();
   const [selectedImage, setSelectedImage] = useState(null);
+
   const user = useUser();
   const onSubmit = async (values, { setErrors, setStatus, setSubmitting }) => {
     if (selectedImage) {
