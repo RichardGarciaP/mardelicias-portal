@@ -1,7 +1,6 @@
 import MainCard from '../../../ui-component/cards/MainCard';
 import CustomTable from '../../../ui-component/table/CustomTable';
 import useUsers from '../../../hooks/useUsers';
-import CustomLink from '../../../ui-component/custom-link/CustomLink';
 import TableActions from '../../../ui-component/table/table-actions/TableActions';
 import { useNavigate } from 'react-router-dom';
 
@@ -41,7 +40,8 @@ const Users = () => {
     {
       field: 'phone',
       headerName: 'Telefono',
-      flex: 1
+      flex: 1,
+      valueGetter: (params) => `+593${params.row.phone}`
     },
     {
       field: 'actions',

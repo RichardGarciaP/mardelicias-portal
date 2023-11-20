@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import MainCard from '../../../ui-component/cards/MainCard';
 import UserDetail from '../../pages/users/UserDetailForm';
 import { createUser } from '../../../services/users/users';
@@ -8,9 +8,8 @@ import { useNavigate } from 'react-router-dom';
 const UserNew = () => {
   const navigation = useNavigate();
   const onSubmit = async (values, { setErrors, setStatus, setSubmitting }) => {
-    const { data, error } = await createUser(values);
-    console.log('error', error);
-    console.log('data', data);
+    const { error } = await createUser(values);
+
     if (error) {
       setErrors({ submit: error.message });
       setStatus({ success: false });

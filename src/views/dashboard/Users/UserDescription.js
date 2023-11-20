@@ -14,8 +14,7 @@ import { updateUser } from '../../../services/users/users';
 const UserDescription = () => {
   const { id } = useParams();
   const navigation = useNavigate();
-  const { user, isLoading, error } = useUserDescription(id);
-
+  const { user, isLoading } = useUserDescription(id);
   const onSubmit = async (values, { setErrors, setStatus, setSubmitting }) => {
     const { error } = await updateUser(id, values);
     if (error) {
@@ -43,9 +42,9 @@ const UserDescription = () => {
         initialValues={{
           ...user?.user_metadata,
           email: user?.email,
-          phone: user?.phone,
+          phone: `0${user?.phone}`,
           role: user?.user_metadata?.role ?? USERS_TYPE_DEFINITIONS.WINEMARKER,
-          password: '',
+          password: user?.password,
           submit: null
         }}
       />

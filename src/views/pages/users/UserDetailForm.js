@@ -18,7 +18,7 @@ import AnimateButton from '../../../ui-component/extended/AnimateButton';
 
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import { dniRegExp, phoneRegExp, USERS_TYPE } from '../../../utils/constants';
+import { dniRegExp, USERS_TYPE } from '../../../utils/constants';
 
 const Container = styled('div')({
   '& .MuiInputBase-inputMultiline': {
@@ -40,9 +40,9 @@ const UserDetailForm = ({ initialValues, onSubmit }) => {
 
   const validations = Yup.object().shape({
     dni: Yup.string().matches(dniRegExp, 'El número de cédula es invalido').required('El número de cédula'),
-    first_name: Yup.string().min(3).required('El nombre es requerido'),
-    last_name: Yup.string().min(3).required('El apellido es requerido'),
-    phone: Yup.string().required('El número de celular es requerido'),
+    first_name: Yup.string().min(3, 'El nombre debe tener minimo 3 caracteres').required('El nombre es requerido'),
+    last_name: Yup.string().min(3, 'El apellido debe tener minimo 3 caracteres').required('El apellido es requerido'),
+    phone: Yup.string().min(10).max(10).required('El número de celular es requerido'),
     email: Yup.string().email('El email debe ser valido').max(255).required('El email es requerido'),
     password: Yup.string().max(255).required('La contraseña es requerida'),
     role: Yup.string().required('El tipo de usuario es requerido'),
