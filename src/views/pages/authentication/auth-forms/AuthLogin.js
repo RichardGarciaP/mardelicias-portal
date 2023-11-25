@@ -96,7 +96,6 @@ const FirebaseLogin = ({ ...others }) => {
                 onBlur={handleBlur}
                 onChange={handleChange}
                 label="Email"
-                inputProps={{}}
               />
               {touched.email && errors.email && (
                 <FormHelperText error id="standard-weight-helper-text-email-login">

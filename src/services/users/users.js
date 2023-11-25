@@ -20,6 +20,7 @@ export const createUser = async (data) => {
     email: data?.email,
     password: data?.password,
     phone: newPhone,
+    email_confirm: true,
     user_metadata: {
       dni: data?.dni,
       first_name: data?.first_name,
@@ -42,6 +43,7 @@ export const updateUser = async (id, data) => {
     email: data?.email,
     password: data?.password,
     phone: newPhone,
+    email_confirm: true,
     user_metadata: {
       dni: data?.dni,
       first_name: data?.first_name,
