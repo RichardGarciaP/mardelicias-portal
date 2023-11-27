@@ -6,7 +6,7 @@ export const USERS_TYPE_DEFINITIONS = {
   DRIVER: 'repartidor'
 };
 
-export const ORDER_STATUS = ['procesando', 'preparado', 'enviado', 'entregado'];
+export const ORDER_STATUS = ['procesando', 'enviado', 'entregado'];
 
 export const ORDER_STATUS_DEFINITIONS = {
   PROCESSING: 'procesando',
