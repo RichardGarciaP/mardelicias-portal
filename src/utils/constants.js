@@ -10,7 +10,6 @@ export const ORDER_STATUS = ['procesando', 'preparado', 'enviado', 'entregado'];
 
 export const ORDER_STATUS_DEFINITIONS = {
   PROCESSING: 'procesando',
-  PREPARING: 'preparado',
   DISPATCH: 'enviado',
   DELIVERED: 'entregado'
 };
