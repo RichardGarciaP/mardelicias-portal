@@ -135,7 +135,12 @@ const OrderDescriptionCard = ({ data, onSubmit }) => {
             Guardar
           </Button>
           {data?.voucher_url && openVoucher && (
-            <Lightbox medium={data?.voucher_url} large={data?.voucher_url} alt="Comprobante de pago" onClose={onCloseVoucher} />
+            <Lightbox
+              medium={`https://nmswwbindwiwxgeravfq.supabase.co/storage/v1/object/public/vouchers/${data?.voucher_url}`}
+              large={`https://nmswwbindwiwxgeravfq.supabase.co/storage/v1/object/public/vouchers/${data?.voucher_url}`}
+              alt="Comprobante de pago"
+              onClose={onCloseVoucher}
+            />
           )}
         </form>
       )}
