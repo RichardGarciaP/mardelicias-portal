@@ -4,6 +4,7 @@ import useEntity from '../../../hooks/useEntity';
 import TableActions from '../../../ui-component/table/table-actions/TableActions';
 import { useNavigate } from 'react-router-dom';
 import { isBrowser } from '../../../utils/utils';
+import Swall from 'sweetalert2';
 
 const Products = () => {
   const { data, isLoading, deleteProduct } = useEntity('products');
@@ -14,9 +15,19 @@ const Products = () => {
   };
 
   const onDelete = (id) => {
-    if (isBrowser() && window.confirm('¿Esta seguro de realizar la acción?')) {
-      deleteProduct(id);
-    }
+    Swall.fire({
+      title: '¿Está seguro de eliminar el producto?',
+      text: 'Esta acción no se puede revertir!',
+      icon: 'warning',
+      showCancelButton: true,
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'Cancelar',
+      confirmButtonText: 'Si, borrar!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        deleteProduct(id);
+      }
+    });
   };
 
   const columns = [

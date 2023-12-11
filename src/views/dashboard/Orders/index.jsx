@@ -7,12 +7,29 @@ import { isBrowser } from '../../../utils/utils';
 import CustomTable from '../../../ui-component/table/CustomTable';
 import moment from 'moment';
 import useOrders from '../../../hooks/useOrders';
+import { mutate } from 'swr';
+import { deleteEntity } from 'services/methods';
+import Swall from 'sweetalert2';
 
 const Orders = () => {
   const { data, isLoading, error } = useOrders();
   const navigate = useNavigate();
 
-  console.log(data);
+  const deleteOrder = (id) => {
+    Swall.fire({
+      title: '¿Está seguro de eliminar la orden?',
+      text: 'Esta acción no se puede revertir!',
+      icon: 'warning',
+      showCancelButton: true,
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'Cancelar',
+      confirmButtonText: 'Si, borrar!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        deleteEntity('orders', id).then(() => mutate(`/orders`));
+      }
+    });
+  };
 
   const onView = (id) => {
     navigate(`/orders/${id}`);
@@ -56,7 +73,7 @@ const Orders = () => {
     {
       field: 'actions',
       headerName: 'Acciones',
-      renderCell: (params) => <TableActions onView={() => onView(params.row.id)} />
+      renderCell: (params) => <TableActions onView={() => onView(params.row.id)} onDelete={() => deleteOrder(params.row.id)} />
     }
   ];
 
