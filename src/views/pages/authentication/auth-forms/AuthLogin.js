@@ -49,8 +49,11 @@ const FirebaseLogin = ({ ...others }) => {
   };
 
   useEffect(() => {
-    if (getLocalStorage('user') && getLocalStorage('session')) {
-      navigate('/');
+    const user = getLocalStorage('user');
+    if (user && getLocalStorage('session')) {
+      if (user.user_metadata?.role === USERS_TYPE_DEFINITIONS.ADMIN || user.user_metadata?.role === USERS_TYPE_DEFINITIONS.WINEMARKER) {
+        navigate('/');
+      }
     }
   }, []);
 
@@ -77,7 +80,10 @@ const FirebaseLogin = ({ ...others }) => {
             return;
           }
 
-          if (data.user.user_metadata === USERS_TYPE_DEFINITIONS.CLIENT || data.user.user_metadata === USERS_TYPE_DEFINITIONS.DRIVER) {
+          if (
+            data.user.user_metadata.role === USERS_TYPE_DEFINITIONS.CLIENT ||
+            data.user.user_metadata.role === USERS_TYPE_DEFINITIONS.DRIVER
+          ) {
             setErrors({ submit: 'Acceso no permitido' });
             setStatus({ success: false });
             setSubmitting(false);

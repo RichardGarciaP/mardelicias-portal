@@ -13,11 +13,25 @@ import themes from 'themes';
 
 // project imports
 import NavigationScroll from 'layout/NavigationScroll';
+import { useEffect } from 'react';
+import { getLocalStorage } from 'utils/utils';
+import { USERS_TYPE_DEFINITIONS } from 'utils/constants';
+import { useNavigate } from 'react-router';
 
 // ==============================|| APP ||============================== //
 
 const App = () => {
   const customization = useSelector((state) => state.customization);
+  const navigate = useNavigate();
+  useEffect(() => {
+    const user = JSON.parse(getLocalStorage('user'));
+
+    if (user && user.id) {
+      if (user.user_metadata.role === USERS_TYPE_DEFINITIONS.CLIENT || user.user_metadata.role === USERS_TYPE_DEFINITIONS.DRIVER) {
+        navigate('/login');
+      }
+    }
+  }, []);
 
   return (
     <StyledEngineProvider injectFirst>
