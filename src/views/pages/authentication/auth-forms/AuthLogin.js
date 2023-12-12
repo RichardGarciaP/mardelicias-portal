@@ -30,6 +30,7 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { signInWithEmail } from '../../../../services/users/login';
 import { getLocalStorage, setLocalStorage } from '../../../../utils/utils';
+import { USERS_TYPE_DEFINITIONS } from 'utils/constants';
 
 // ============================|| FIREBASE - LOGIN ||============================ //
 
@@ -76,6 +77,12 @@ const FirebaseLogin = ({ ...others }) => {
             return;
           }
 
+          if (data.user.user_metadata === USERS_TYPE_DEFINITIONS.CLIENT || data.user.user_metadata === USERS_TYPE_DEFINITIONS.DRIVER) {
+            setErrors({ submit: 'Acceso no permitido' });
+            setStatus({ success: false });
+            setSubmitting(false);
+            return;
+          }
           setStatus({ success: true });
           setSubmitting(false);
           setLocalStorage('user', JSON.stringify(data.user));
