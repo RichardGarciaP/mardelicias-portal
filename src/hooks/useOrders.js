@@ -12,7 +12,6 @@ const useOrders = () => {
   const { data: dataTotalSell, isLoading: isLoadingTotalSells } = useSWR(`/${ENTITY}/totals`, () => getTotalFromAllOrders(ENTITY));
   const { data: dataLastOrders, isLoading: isLoadingLastOrders } = useSWR(`/${ENTITY}/last-orders`, () => getLastOrders());
 
-  console.log(data);
   const getTotalSells = () => {
     let totalSum = 0;
     data?.data?.forEach(({ total }) => {

@@ -1,8 +1,8 @@
 // assets
 import { IconDashboard } from '@tabler/icons';
-import { Person, Store, ReceiptLong } from '@mui/icons-material';
+import { Person, Store, ReceiptLong, AccountBalance } from '@mui/icons-material';
 // constant
-const icons = { IconDashboard, Person, Store, ReceiptLong };
+const icons = { IconDashboard, Person, Store, ReceiptLong, AccountBalance };
 
 // ==============================|| DASHBOARD MENU ITEMS ||============================== //
 
@@ -41,6 +41,14 @@ const dashboard = {
       type: 'item',
       url: '/orders',
       icon: icons.ReceiptLong,
+      breadcrumbs: false
+    },
+    {
+      id: 'banks',
+      title: 'Bancos',
+      type: 'item',
+      url: '/banks',
+      icon: icons.AccountBalance,
       breadcrumbs: false
     }
   ]

@@ -7,13 +7,16 @@ import SkeletonCustomTable from './Skeleton/SkeletonCustomTable';
 const TableWrapper = styled('div')({
   width: '100%',
   '& .MuiDataGrid-overlayWrapper': {
-    minHeight: '40px'
+    minHeight: '100px'
+  },
+  '& .MuiDataGrid-virtualScroller': {
+    minHeight: '100px'
   }
 });
 
 const CustomTable = ({ rows, columns, loading, ...otherProps }) => {
   return (
-    <>
+    <TableWrapper>
       {loading ? (
         <SkeletonCustomTable />
       ) : (
@@ -35,7 +38,7 @@ const CustomTable = ({ rows, columns, loading, ...otherProps }) => {
           {...otherProps}
         />
       )}
-    </>
+    </TableWrapper>
   );
 };
 
