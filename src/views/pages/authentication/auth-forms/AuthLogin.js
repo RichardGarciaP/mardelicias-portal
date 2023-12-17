@@ -32,9 +32,7 @@ import { signInWithEmail } from '../../../../services/users/login';
 import { getLocalStorage, setLocalStorage } from '../../../../utils/utils';
 import { USERS_TYPE_DEFINITIONS } from 'utils/constants';
 
-// ============================|| FIREBASE - LOGIN ||============================ //
-
-const FirebaseLogin = ({ ...others }) => {
+const AuthLogin = ({ ...others }) => {
   const theme = useTheme();
   const navigate = useNavigate();
   const [checked, setChecked] = useState(true);
@@ -173,4 +171,4 @@ const FirebaseLogin = ({ ...others }) => {
   );
 };
 
-export default FirebaseLogin;
+export default AuthLogin;
