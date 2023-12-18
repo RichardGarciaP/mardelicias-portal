@@ -17,6 +17,7 @@ import { useEffect } from 'react';
 import { getLocalStorage } from 'utils/utils';
 import { USERS_TYPE_DEFINITIONS } from 'utils/constants';
 import { useNavigate } from 'react-router';
+import { UserProvider } from 'store/UserContext';
 
 // ==============================|| APP ||============================== //
 
@@ -34,15 +35,17 @@ const App = () => {
   }, []);
 
   return (
-    <StyledEngineProvider injectFirst>
-      <ThemeProvider theme={themes(customization)}>
-        <CssBaseline />
-        <NavigationScroll>
-          <Routes />
-        </NavigationScroll>
-        <ToastContainer autoClose={2000} theme="colored" />
-      </ThemeProvider>
-    </StyledEngineProvider>
+    <UserProvider>
+      <StyledEngineProvider injectFirst>
+        <ThemeProvider theme={themes(customization)}>
+          <CssBaseline />
+          <NavigationScroll>
+            <Routes />
+          </NavigationScroll>
+          <ToastContainer autoClose={2000} theme="colored" />
+        </ThemeProvider>
+      </StyledEngineProvider>
+    </UserProvider>
   );
 };
 

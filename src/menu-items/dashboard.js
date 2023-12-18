@@ -17,7 +17,8 @@ const dashboard = {
       type: 'item',
       url: '/',
       icon: icons.IconDashboard,
-      breadcrumbs: false
+      breadcrumbs: false,
+      isAdmin: false
     },
     {
       id: 'user',
@@ -25,7 +26,8 @@ const dashboard = {
       type: 'item',
       url: '/users',
       icon: icons.Person,
-      breadcrumbs: false
+      breadcrumbs: false,
+      isAdmin: true
     },
     {
       id: 'products',
@@ -33,7 +35,8 @@ const dashboard = {
       type: 'item',
       url: '/products',
       icon: icons.Store,
-      breadcrumbs: false
+      breadcrumbs: false,
+      isAdmin: false
     },
     {
       id: 'orders',
@@ -41,7 +44,8 @@ const dashboard = {
       type: 'item',
       url: '/orders',
       icon: icons.ReceiptLong,
-      breadcrumbs: false
+      breadcrumbs: false,
+      isAdmin: false
     },
     {
       id: 'banks',
@@ -49,7 +53,8 @@ const dashboard = {
       type: 'item',
       url: '/banks',
       icon: icons.AccountBalance,
-      breadcrumbs: false
+      breadcrumbs: false,
+      isAdmin: true
     }
   ]
 };

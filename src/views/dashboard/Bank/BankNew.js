@@ -5,11 +5,22 @@ import { useNavigate } from 'react-router-dom';
 import { insertEntity } from '../../../services/methods';
 import { mutate } from 'swr';
 import BankDetailForm from 'views/pages/banks/BankDetailForm';
+import { useContext } from 'react';
+import { UserContext } from 'store/UserContext';
+import { useEffect } from 'react';
 
 const ENTITY_NAME = 'bank_accounts';
 
 const BankNew = () => {
   const navigation = useNavigate();
+
+  const { isAdmin } = useContext(UserContext);
+
+  useEffect(() => {
+    if (!isAdmin) {
+      navigation('/');
+    }
+  }, []);
 
   const onSubmit = async (values, { setErrors, setStatus, setSubmitting }) => {
     setSubmitting(true);

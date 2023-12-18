@@ -5,10 +5,21 @@ import TableActions from '../../../ui-component/table/table-actions/TableActions
 import { useNavigate } from 'react-router-dom';
 import { isBrowser } from '../../../utils/utils';
 import Swall from 'sweetalert2';
+import { useContext } from 'react';
+import { UserContext } from 'store/UserContext';
+import { useEffect } from 'react';
 
 const Banks = () => {
   const { data, isLoading, deleteProduct } = useEntity('bank_accounts');
   const navigate = useNavigate();
+
+  const { isAdmin } = useContext(UserContext);
+
+  useEffect(() => {
+    if (!isAdmin) {
+      navigate('/');
+    }
+  }, []);
 
   const onEdit = (id) => {
     navigate(`/banks/${id}`);

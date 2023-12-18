@@ -7,10 +7,14 @@ import { Divider, List, Typography } from '@mui/material';
 // project imports
 import NavItem from '../NavItem';
 import NavCollapse from '../NavCollapse';
+import { useContext } from 'react';
+import { UserContext } from 'store/UserContext';
 
 // ==============================|| SIDEBAR MENU LIST GROUP ||============================== //
 
 const NavGroup = ({ item }) => {
+  const { isAdmin } = useContext(UserContext);
+
   const theme = useTheme();
 
   // menu list collapse & items
@@ -19,7 +23,11 @@ const NavGroup = ({ item }) => {
       case 'collapse':
         return <NavCollapse key={menu.id} menu={menu} level={1} />;
       case 'item':
-        return <NavItem key={menu.id} item={menu} level={1} />;
+        return isAdmin ? (
+          <NavItem key={menu.id} item={menu} level={1} />
+        ) : (
+          !isAdmin && !menu.isAdmin && <NavItem key={menu.id} item={menu} level={1} />
+        );
       default:
         return (
           <Typography key={menu.id} variant="h6" color="error" align="center">

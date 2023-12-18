@@ -3,7 +3,8 @@ import { Typography } from '@mui/material';
 import NavGroup from './NavGroup';
 //TODO: Remover items
 import menuItem from 'menu-items';
-
+import { useEffect } from 'react';
+import { useState } from 'react';
 
 const MenuList = () => {
   const navItems = menuItem.items.map((item) => {

@@ -9,10 +9,14 @@ import useOrders from '../../../hooks/useOrders';
 import { mutate } from 'swr';
 import { deleteEntity } from 'services/methods';
 import Swall from 'sweetalert2';
+import { useContext } from 'react';
+import { UserContext } from 'store/UserContext';
 
 const Orders = () => {
   const { data, isLoading, error } = useOrders();
   const navigate = useNavigate();
+
+  const { isAdmin } = useContext(UserContext);
 
   const deleteOrder = (id) => {
     Swall.fire({
@@ -43,9 +47,12 @@ const Orders = () => {
       field: 'users',
       headerName: 'Cliente',
       flex: 1,
-      renderCell: (params) => (
-        <CustomLink url={`/users/${params.row.users.id}`} title={`${params.row.users.first_name} ${params.row.users.last_name}`} />
-      )
+      renderCell: (params) =>
+        isAdmin ? (
+          <CustomLink url={`/users/${params.row.users.id}`} title={`${params.row.users.first_name} ${params.row.users.last_name}`} />
+        ) : (
+          `${params.row.users.first_name} ${params.row.users.last_name}`
+        )
     },
     {
       field: 'payment_method',

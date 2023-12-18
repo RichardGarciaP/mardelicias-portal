@@ -3,11 +3,20 @@ import CustomTable from '../../../ui-component/table/CustomTable';
 import useUsers from '../../../hooks/useUsers';
 import TableActions from '../../../ui-component/table/table-actions/TableActions';
 import { useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
+import { UserContext } from 'store/UserContext';
+import { useEffect } from 'react';
 
 const Users = () => {
   const { users, isLoading } = useUsers();
-
+  const { isAdmin } = useContext(UserContext);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!isAdmin) {
+      navigate('/');
+    }
+  }, []);
 
   const onEdit = (id) => {
     navigate(`/users/${id}`);

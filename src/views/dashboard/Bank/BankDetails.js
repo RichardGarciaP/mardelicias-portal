@@ -10,10 +10,21 @@ import { useNavigate } from 'react-router-dom';
 import { mutate } from 'swr';
 import BankDetailForm from 'views/pages/banks/BankDetailForm';
 import useBankDescription from 'hooks/useBankDescription';
+import { useContext } from 'react';
+import { UserContext } from 'store/UserContext';
+import { useEffect } from 'react';
 
 const BankDetails = () => {
   const { id } = useParams();
   const navigation = useNavigate();
+
+  const { isAdmin } = useContext(UserContext);
+
+  useEffect(() => {
+    if (!isAdmin) {
+      navigation('/');
+    }
+  }, []);
 
   const { data, isLoading } = useBankDescription(id);
 
