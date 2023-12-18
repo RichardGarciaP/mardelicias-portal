@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import MainCard from '../../../ui-component/cards/MainCard';
 import CustomLink from '../../../ui-component/custom-link/CustomLink';
 import TableActions from '../../../ui-component/table/table-actions/TableActions';
-import { isBrowser } from '../../../utils/utils';
 import CustomTable from '../../../ui-component/table/CustomTable';
 import moment from 'moment';
 import useOrders from '../../../hooks/useOrders';

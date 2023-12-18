@@ -61,7 +61,7 @@ const PopularCard = ({ isLoading, lastOrders }) => {
                               )}
                             </Grid>
                             <Grid item sx={{ alignItems: 'center', color: '#2196f3', display: 'flex' }}>
-                              <IconButton onClick={() => handleShowOrder(2)}>
+                              <IconButton onClick={() => handleShowOrder(order.id)}>
                                 <ArrowForwardIosIcon />
                               </IconButton>
                             </Grid>

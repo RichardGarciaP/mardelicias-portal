@@ -1,31 +1,14 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-// material-ui
 import { useTheme } from '@mui/material/styles';
-import {
-  Box,
-  Button,
-  Checkbox,
-  FormControl,
-  FormControlLabel,
-  FormHelperText,
-  IconButton,
-  InputAdornment,
-  InputLabel,
-  OutlinedInput,
-  Stack,
-  Typography
-} from '@mui/material';
+import { Box, Button, FormControl, FormHelperText, IconButton, InputAdornment, InputLabel, OutlinedInput } from '@mui/material';
 
-// third party
 import * as Yup from 'yup';
 import { Formik } from 'formik';
 
-// project imports
 import AnimateButton from 'ui-component/extended/AnimateButton';
 
-// assets
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { signInWithEmail } from '../../../../services/users/login';
@@ -146,11 +129,6 @@ const AuthLogin = ({ ...others }) => {
                 </FormHelperText>
               )}
             </FormControl>
-            {/*<Stack direction="row" alignItems="center" justifyContent="space-between" spacing={1}>*/}
-            {/*  <Typography variant="subtitle1" color="secondary" sx={{ textDecoration: 'none', cursor: 'pointer' }}>*/}
-            {/*    Forgot Password?*/}
-            {/*  </Typography>*/}
-            {/*</Stack>*/}
             {errors.submit && (
               <Box sx={{ mt: 3 }}>
                 <FormHelperText error>{errors.submit}</FormHelperText>
