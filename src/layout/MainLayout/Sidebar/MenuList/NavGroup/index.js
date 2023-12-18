@@ -7,6 +7,8 @@ import { Divider, List, Typography } from '@mui/material';
 // project imports
 import NavItem from '../NavItem';
 import NavCollapse from '../NavCollapse';
+import { getLocalStorage } from 'utils/utils';
+import { useEffect, useState } from 'react';
 import { useContext } from 'react';
 import { UserContext } from 'store/UserContext';
 
@@ -21,13 +23,9 @@ const NavGroup = ({ item }) => {
   const items = item.children?.map((menu) => {
     switch (menu.type) {
       case 'collapse':
-        return <NavCollapse key={menu.id} menu={menu} level={1} />;
+        return isAdmin ? <NavItem key={menu.id} item={menu} level={1} /> : !menu.isAdmin && <NavItem key={menu.id} item={menu} level={1} />;
       case 'item':
-        return isAdmin ? (
-          <NavItem key={menu.id} item={menu} level={1} />
-        ) : (
-          !isAdmin && !menu.isAdmin && <NavItem key={menu.id} item={menu} level={1} />
-        );
+        return isAdmin ? <NavItem key={menu.id} item={menu} level={1} /> : !menu.isAdmin && <NavItem key={menu.id} item={menu} level={1} />;
       default:
         return (
           <Typography key={menu.id} variant="h6" color="error" align="center">

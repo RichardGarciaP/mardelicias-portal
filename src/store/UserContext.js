@@ -1,24 +1,24 @@
 import React, { createContext, useEffect, useState } from 'react';
-import { getLocalStorage } from 'utils/utils';
 
 export const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
   const [isAdmin, setIsAdmin] = useState(false);
+  const [user, setUser] = useState();
 
   useEffect(() => {
-    const user = getLocalStorage('user');
     if (user) {
-      const newUser = JSON.parse(user);
-      setIsAdmin(newUser.user_metadata.role === 'admin');
+      setIsAdmin(user.user_metadata.role === 'admin');
     }
-  }, []);
+  }, [user]);
 
   return (
     <UserContext.Provider
       value={{
         isAdmin,
-        setIsAdmin: (isAdmin) => setIsAdmin(isAdmin)
+        setIsAdmin: (isAdmin) => setIsAdmin(isAdmin),
+        user,
+        setUser: (user) => setUser(user)
       }}
     >
       {children}

@@ -14,11 +14,14 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { signInWithEmail } from '../../../../services/users/login';
 import { getLocalStorage, setLocalStorage } from '../../../../utils/utils';
 import { USERS_TYPE_DEFINITIONS } from 'utils/constants';
+import { useContext } from 'react';
+import { UserContext } from 'store/UserContext';
 
 const AuthLogin = ({ ...others }) => {
   const theme = useTheme();
   const navigate = useNavigate();
   const [checked, setChecked] = useState(true);
+  const { setUser } = useContext(UserContext);
 
   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => {
@@ -72,6 +75,7 @@ const AuthLogin = ({ ...others }) => {
           }
           setStatus({ success: true });
           setSubmitting(false);
+          setUser(data.user);
           setLocalStorage('user', JSON.stringify(data.user));
           setLocalStorage('session', JSON.stringify(data.session));
 
