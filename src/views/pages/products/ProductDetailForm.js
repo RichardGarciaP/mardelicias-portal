@@ -173,7 +173,7 @@ const ProductDetailForm = ({ initialValues, onSubmit, setSelectedImage, selected
                 </Grid>
                 <Grid item xs={12}>
                   <FormControl fullWidth error={Boolean(touched.image && errors.image)} sx={{ ...theme.typography.customInput }}>
-                    {currentImage ? (
+                    {currentImage && !selectedImage ? (
                       <ImageWrapper>
                         <IconButton onClick={onRemoveImage} type="button">
                           <Delete />

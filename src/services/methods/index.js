@@ -10,4 +10,12 @@ export const updateEntity = async (entityName, data) => await supabase.from(enti
 
 export const deleteEntity = async (entityName, id) => await supabase.from(entityName).delete().eq('id', id);
 
-export const uploadFile = async (name, file) => await supabase.storage.from('products').upload(`${name}-${file?.path}`, file);
+export const uploadFile = async (name, file) => {
+  if (!file) return { data: '', error: null };
+  return await supabase.storage.from('products').upload(`${name}-${file?.path}`, file);
+};
+
+export const removeFile = async (file) => {
+  const fileArray = file.split('-');
+  return await supabase.storage.from('products').remove([fileArray[fileArray.length - 1]]);
+};

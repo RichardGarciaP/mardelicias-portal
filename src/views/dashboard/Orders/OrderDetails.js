@@ -31,6 +31,7 @@ const OrderDetails = () => {
     setStatus({ success: true });
     setSubmitting(false);
 
+    mutate(`/orders/${id}`);
     mutate('/orders');
     toast.success('Orden actualizada correctamente');
     navigation('/orders');

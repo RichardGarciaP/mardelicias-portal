@@ -6,10 +6,11 @@ import ProductDetailForm from '../../pages/products/ProductDetailForm';
 import MainCard from '../../../ui-component/cards/MainCard';
 
 import useProductDescription from '../../../hooks/useProductDescription';
-import { updateEntity, uploadFile } from '../../../services/methods';
+import { removeFile, updateEntity, uploadFile } from '../../../services/methods';
 import { useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import { mutate } from 'swr';
+import { IMAGE_URL } from 'utils/constants';
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -19,17 +20,28 @@ const ProductDetails = () => {
   const { data, isLoading } = useProductDescription(id);
 
   const onSubmit = async (values, { setErrors, setStatus, setSubmitting }) => {
-    if (selectedImage) {
+    if (selectedImage || data?.imageUrl) {
       setSubmitting(true);
       const { data: imageData, error: errorImage } = await uploadFile(uuidv4(), selectedImage);
-      console.log(imageData);
+
       if (errorImage) {
         setErrors({ submit: 'Ha ocurrido un error, vuelva a intentarlo' });
         console.log(errorImage);
         return;
       }
-      const { error } = await updateEntity('products', { id, ...values });
 
+      const resp = await updateEntity('products', {
+        id,
+        ...values,
+        imageUrl: imageData ? IMAGE_URL + imageData.path : data?.imageUrl
+      });
+
+      if (imageData && data?.imageUrl !== IMAGE_URL + imageData.path) {
+        await removeFile(data?.imageUrl);
+      }
+
+      const { data: dataProduct, error } = resp;
+      console.log(resp);
       if (error) {
         setErrors({ submit: error.message });
         setStatus({ success: false });
@@ -40,7 +52,7 @@ const ProductDetails = () => {
       setStatus({ success: true });
       setSubmitting(false);
       mutate('/products');
-      mutate(`/product/${id}`);
+      mutate(`/products/${id}`);
       toast.success('Producto actualizado correctamente');
       navigation('/products');
       return;
