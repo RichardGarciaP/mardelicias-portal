@@ -52,7 +52,7 @@ const Products = () => {
       headerName: 'Existencias',
       sortable: false,
       flex: 1,
-      valueGetter: (params) => `${params.row.stock || ''}`
+      valueGetter: (params) => `${params.row.stock || 0}`
     },
     {
       field: 'actions',
