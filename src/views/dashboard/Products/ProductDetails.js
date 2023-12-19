@@ -41,7 +41,6 @@ const ProductDetails = () => {
       }
 
       const { data: dataProduct, error } = resp;
-      console.log(resp);
       if (error) {
         setErrors({ submit: error.message });
         setStatus({ success: false });
