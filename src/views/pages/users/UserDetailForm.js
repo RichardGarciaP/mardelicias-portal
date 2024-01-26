@@ -39,10 +39,17 @@ const UserDetailForm = ({ initialValues, onSubmit }) => {
   };
 
   const validations = Yup.object().shape({
-    dni: Yup.string().matches(dniRegExp, 'El número de cédula es invalido').required('El número de cédula'),
+    dni: Yup.string()
+      .matches(dniRegExp, 'El número de cédula es invalido')
+      .min(10, 'El número debe contener 10 caracteres')
+      .max(10, 'El número debe contener 10 caracteres')
+      .required('El número de cédula'),
     first_name: Yup.string().min(3, 'El nombre debe tener minimo 3 caracteres').required('El nombre es requerido'),
     last_name: Yup.string().min(3, 'El apellido debe tener minimo 3 caracteres').required('El apellido es requerido'),
-    phone: Yup.string().min(10).max(10).required('El número de celular es requerido'),
+    phone: Yup.string()
+      .min(10, 'El número debe contener 10 caracteres')
+      .max(10, 'El número debe contener 10 caracteres')
+      .required('El número de celular es requerido'),
     email: Yup.string().email('El email debe ser valido').max(255).required('El email es requerido'),
     password: Yup.string().max(255).required('La contraseña es requerida'),
     role: Yup.string().required('El tipo de usuario es requerido'),
@@ -72,7 +79,7 @@ const UserDetailForm = ({ initialValues, onSubmit }) => {
         validationSchema={validations}
         onSubmit={onSubmit}
       >
-        {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) => (
+        {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values, setFieldValue }) => (
           <form noValidate onSubmit={handleSubmit}>
             <Grid container spacing={2}>
               <Grid item xs={12} md={6}>
@@ -84,7 +91,13 @@ const UserDetailForm = ({ initialValues, onSubmit }) => {
                     value={values.dni}
                     name="dni"
                     onBlur={handleBlur}
-                    onChange={handleChange}
+                    onChange={(e) => {
+                      const text = e.target.value;
+
+                      if (/^\d*$/.test(text) && text.length <= 10) {
+                        setFieldValue('dni', text);
+                      }
+                    }}
                     label="Cédula"
                   />
                   {touched.dni && errors.dni && (
@@ -193,7 +206,12 @@ const UserDetailForm = ({ initialValues, onSubmit }) => {
                     value={values.phone}
                     name="phone"
                     onBlur={handleBlur}
-                    onChange={handleChange}
+                    onChange={(e) => {
+                      const text = e.target.value;
+                      if (/^\d*$/.test(text) && text.length <= 10) {
+                        setFieldValue('phone', text);
+                      }
+                    }}
                     label="Teléfono"
                     inputProps={{ prefix: '593' }}
                   />
